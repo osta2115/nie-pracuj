@@ -1,19 +1,20 @@
 package pl.niepracuj.service.advertisement;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.niepracuj.exception.exceptions.EntityNotFoundException;
-import pl.niepracuj.model.dto.AdvertisementCreateDto;
-import pl.niepracuj.model.dto.AdvertisementDto;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementCreateDto;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementDto;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementSearchCriteriaDto;
 import pl.niepracuj.model.entity.Advertisement;
-import pl.niepracuj.model.entity.Company;
 import pl.niepracuj.model.entity.Skill;
 import pl.niepracuj.model.mapper.AdvertisementMapper;
 import pl.niepracuj.model.mapper.SkillMapper;
 import pl.niepracuj.repository.*;
 
 import javax.transaction.Transactional;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +38,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     private final SkillRepository skillRepository;
 
     private final LevelRepository levelRepository;
+
     private final AdvertisementMapper advertisementMapper;
 
     private final SkillMapper skillMapper;
@@ -44,6 +46,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public List<AdvertisementDto> getAllAdvertisements() {
         return advertisementRepository.findAll().stream().map(advertisementMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdvertisementDto> getAdvertisementsByCriteria(AdvertisementSearchCriteriaDto criteriaDto, Pageable pageable) {
+        var specification = new AdvertisementSpecification(criteriaDto);
+        Page<Advertisement> advertisements = advertisementRepository.findAll(specification, pageable);
+        return advertisements.getContent().stream().map(advertisementMapper::toDto)
                 .collect(Collectors.toList());
     }
 

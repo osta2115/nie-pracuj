@@ -1,8 +1,9 @@
 package pl.niepracuj.service.advertisement;
 
-import pl.niepracuj.exception.exceptions.EntityNotFoundException;
-import pl.niepracuj.model.dto.AdvertisementCreateDto;
-import pl.niepracuj.model.dto.AdvertisementDto;
+import org.springframework.data.domain.Pageable;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementCreateDto;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementDto;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementSearchCriteriaDto;
 
 import java.util.List;
 
@@ -10,5 +11,7 @@ public interface AdvertisementService {
 
     List<AdvertisementDto> getAllAdvertisements();
 
-    AdvertisementDto createAdvertisement(AdvertisementCreateDto createDto) throws EntityNotFoundException;
+    List<AdvertisementDto> getAdvertisementsByCriteria(AdvertisementSearchCriteriaDto criteriaDto, Pageable pageable);
+
+    AdvertisementDto createAdvertisement(AdvertisementCreateDto createDto);
 }
