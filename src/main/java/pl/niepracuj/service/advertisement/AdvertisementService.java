@@ -1,5 +1,6 @@
 package pl.niepracuj.service.advertisement;
 
+import pl.niepracuj.exception.exceptions.EntityNotFoundException;
 import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 
@@ -9,5 +10,5 @@ public interface AdvertisementService {
 
     List<AdvertisementDto> getAllAdvertisements();
 
-    AdvertisementDto createAdvertisement(AdvertisementCreateDto createDto);
+    AdvertisementDto createAdvertisement(AdvertisementCreateDto createDto) throws EntityNotFoundException;
 }

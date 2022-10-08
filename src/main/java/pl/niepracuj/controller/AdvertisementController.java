@@ -2,6 +2,7 @@ package pl.niepracuj.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.niepracuj.exception.exceptions.EntityNotFoundException;
 import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 import pl.niepracuj.service.advertisement.AdvertisementService;
@@ -21,7 +22,7 @@ public class AdvertisementController {
     }
 
     @PostMapping("/create")
-    public AdvertisementDto createAdvertisement(@RequestBody AdvertisementCreateDto advertisementCreateDto) {
+    public AdvertisementDto createAdvertisement(@RequestBody AdvertisementCreateDto advertisementCreateDto) throws EntityNotFoundException {
         return advertisementService.createAdvertisement(advertisementCreateDto);
     }
 }
