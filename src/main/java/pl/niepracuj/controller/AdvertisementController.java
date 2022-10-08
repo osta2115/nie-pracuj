@@ -7,6 +7,7 @@ import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 import pl.niepracuj.service.advertisement.AdvertisementService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class AdvertisementController {
     }
 
     @PostMapping("/create")
-    public AdvertisementDto createAdvertisement(@RequestBody AdvertisementCreateDto advertisementCreateDto) throws EntityNotFoundException {
+    public AdvertisementDto createAdvertisement(@RequestBody @Valid AdvertisementCreateDto advertisementCreateDto) throws EntityNotFoundException {
         return advertisementService.createAdvertisement(advertisementCreateDto);
     }
 }
