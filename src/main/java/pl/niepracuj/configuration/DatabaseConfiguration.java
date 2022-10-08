@@ -24,13 +24,13 @@ public class DatabaseConfiguration {
     @Value("${datasource.password}")
     private String password;
 
-    @Value(("${jpa.properties.hibernate.dialect}"))
+    @Value("${jpa.properties.hibernate.dialect}")
     private String dialect;
 
     @Value("${jpa.hibernate.ddl-auto}")
     private String mode;
 
-    @Value("${packges.to.scan}")
+    @Value("${packages.to.scan}")
     private String packages;
 
     @Bean
@@ -43,13 +43,13 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean getEntityManager() {
-        var localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        localContainerEntityManagerFactoryBean.setDataSource(getDataSource());
-        localContainerEntityManagerFactoryBean.setPackagesToScan(packages);
-        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        localContainerEntityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-        return localContainerEntityManagerFactoryBean;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(getDataSource());
+        entityManagerFactoryBean.setPackagesToScan(packages);
+        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
+        return entityManagerFactoryBean;
     }
 
     private Properties getHibernateProperties() {
