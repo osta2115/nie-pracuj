@@ -1,17 +1,17 @@
-DELETE FROM technologies
+DELETE FROM adv_skills;
 
-DELETE FROM seniorities
+DELETE FROM skills;
 
-DELETE FROM companies
+DELETE FROM advertisements;
 
-DELETE FROM states
+DELETE FROM technologies;
 
-DELETE FROM cities
+DELETE FROM seniorities;
 
-DELETE FROM levels
+DELETE FROM companies;
 
-DELETE FROM advertisements
+DELETE FROM cities;
 
-DELETE FROM skills
+DELETE FROM states;
 
-DELETE FROM adv_skills
+DELETE FROM levels;
