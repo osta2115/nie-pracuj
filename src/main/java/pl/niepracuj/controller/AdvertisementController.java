@@ -24,6 +24,11 @@ public class AdvertisementController {
         return advertisementService.getAllAdvertisements();
     }
 
+    @GetMapping("/all/company/{companyId}")
+    public List<AdvertisementDto> getAdvertisementsForCompany(@PathVariable Long companyId) {
+        return advertisementService.getAllAdvertisementsForCompany(companyId);
+    }
+
     @PostMapping("/create")
     public AdvertisementDto createAdvertisement(@RequestBody @Valid AdvertisementCreateDto advertisementCreateDto) throws EntityNotFoundException {
         return advertisementService.createAdvertisement(advertisementCreateDto);

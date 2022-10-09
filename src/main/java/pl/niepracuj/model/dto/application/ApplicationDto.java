@@ -1,20 +1,15 @@
-package pl.niepracuj.model.entity;
+package pl.niepracuj.model.dto.application;
 
 import lombok.*;
+import pl.niepracuj.model.dto.adveritisement.AdvertisementDto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "applications")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Application {
+public class ApplicationDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -27,6 +22,5 @@ public class Application {
 
     private String path;
 
-    @ManyToOne
-    private Advertisement advertisement;
+    private AdvertisementDto advertisementDto;
 }
