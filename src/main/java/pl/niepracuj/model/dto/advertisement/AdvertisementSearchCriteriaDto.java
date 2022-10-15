@@ -1,11 +1,8 @@
-package pl.niepracuj.model.dto.adveritisement;
+package pl.niepracuj.model.dto.advertisement;
 
 import lombok.*;
-import pl.niepracuj.model.dto.SkillCreateDto;
 import pl.niepracuj.model.enums.SeniorityEnum;
 import pl.niepracuj.model.enums.TechnologyEnum;
-
-import java.util.Set;
 
 @Getter
 @Setter

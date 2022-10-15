@@ -1,9 +1,9 @@
 package pl.niepracuj.service.advertisement;
 
 import org.springframework.data.domain.Pageable;
-import pl.niepracuj.model.dto.adveritisement.AdvertisementCreateDto;
-import pl.niepracuj.model.dto.adveritisement.AdvertisementDto;
-import pl.niepracuj.model.dto.adveritisement.AdvertisementSearchCriteriaDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementCreateDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
 
 import java.util.List;
 

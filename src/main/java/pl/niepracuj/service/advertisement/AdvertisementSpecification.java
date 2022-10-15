@@ -2,7 +2,7 @@ package pl.niepracuj.service.advertisement;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import pl.niepracuj.model.dto.adveritisement.AdvertisementSearchCriteriaDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
 import pl.niepracuj.model.entity.Advertisement;
 import pl.niepracuj.model.entity.Advertisement_;
 import pl.niepracuj.model.entity.City_;

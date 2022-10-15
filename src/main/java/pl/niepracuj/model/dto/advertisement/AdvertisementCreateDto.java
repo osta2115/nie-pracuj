@@ -1,4 +1,4 @@
-package pl.niepracuj.model.dto.adveritisement;
+package pl.niepracuj.model.dto.advertisement;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

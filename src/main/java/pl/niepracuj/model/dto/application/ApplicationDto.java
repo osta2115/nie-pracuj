@@ -1,7 +1,7 @@
 package pl.niepracuj.model.dto.application;
 
 import lombok.*;
-import pl.niepracuj.model.dto.adveritisement.AdvertisementDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementDto;
 
 @Getter
 @Setter

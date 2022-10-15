@@ -4,9 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.junit.jupiter.params.provider.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +13,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.niepracuj.model.dto.adveritisement.AdvertisementSearchCriteriaDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
 import pl.niepracuj.model.enums.SeniorityEnum;
 import pl.niepracuj.model.enums.TechnologyEnum;
 
@@ -25,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.niepracuj.util.TestUtils.toJson;
+import static pl.niepracuj.util.TestUtils.toJsonString;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,27 +31,25 @@ import static pl.niepracuj.util.TestUtils.toJson;
         @Sql(scripts = "/sql/controller/advertisement.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(scripts = "/sql/controller/advertisement-cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-public class AdvertisementControllerIT {
+public class AdvertisementControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     public void whenGetAllAdvertisements_thenReturnAdvertisements() throws Exception {
-
-        //when & then
+        // when && then
         mockMvc.perform(get("/adv/all")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", Matchers.equalTo(3)));
-
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
     public void whenGetAdvertisementsByCriteria_thenOkResponse() throws Exception {
         // given
         var criteria = AdvertisementSearchCriteriaDto.builder()
                 .technologyName(TechnologyEnum.JAVA).build();
-        var criteriaJson = toJson(criteria);
+        var criteriaJson = toJsonString(criteria);
 
         // when && then
         mockMvc.perform(post("/adv/search?page=0&size=10&sort=id,DESC")
@@ -65,18 +61,18 @@ public class AdvertisementControllerIT {
 
     @ParameterizedTest
     @ArgumentsSource(CriteriaProvider.class)
-    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
-    public void whenGetAdvertisementsByCriteriaParameterized_thenOkResponse(TechnologyEnum technology,
-                                                                            String city,
-                                                                            SeniorityEnum seniority,
-                                                                            int result) throws Exception {
+    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
+    public void whenGetAdvertisementsByCriteriaParemetrized_thenOkResponse(TechnologyEnum technology,
+                                                                           String city,
+                                                                           SeniorityEnum seniority,
+                                                                           int result) throws Exception {
         // given
         var criteria = AdvertisementSearchCriteriaDto.builder()
                 .technologyName(technology)
                 .cityName(city)
                 .seniorityName(seniority)
                 .build();
-        var criteriaJson = toJson(criteria);
+        var criteriaJson = toJsonString(criteria);
 
         // when && then
         mockMvc.perform(post("/adv/search?page=0&size=10&sort=id,DESC")
@@ -87,9 +83,8 @@ public class AdvertisementControllerIT {
     }
 
     static class CriteriaProvider implements ArgumentsProvider {
-
         @Override
-        public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
+        public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) {
             return Stream.of(
                     Arguments.of(TechnologyEnum.JAVA, null, null, 2),
                     Arguments.of(null, "Nowogrodziec", null, 1),
@@ -97,4 +92,5 @@ public class AdvertisementControllerIT {
             );
         }
     }
+
 }
