@@ -10,6 +10,7 @@ import pl.niepracuj.service.application.ApplicationService;
 import java.io.File;
 import java.io.IOException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/application")
 @RequiredArgsConstructor

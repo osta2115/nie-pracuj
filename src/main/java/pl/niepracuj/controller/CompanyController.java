@@ -10,6 +10,7 @@ import pl.niepracuj.service.company.CompanyService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/company")
 @AllArgsConstructor
